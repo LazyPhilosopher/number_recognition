@@ -1,0 +1,1 @@
+Just simple WinForm program, that creates image array from MNIST file. Then it initializes neural network from network_settings.txt or creates new one. Then you are able to train this simple sigmoid neural network for image recognition. It has pretty complicated code, so plz don't swear me too much :D
