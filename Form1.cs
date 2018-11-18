@@ -253,6 +253,13 @@ namespace MNIST_NeuronNetwork
 
 
             }*/
+            double[] input = {1.0, 0.5, -1.5};
+            double[] answer = {0.208131, 0.22549215, 0.99742175};
+            double index = 0.3;
+            double[] output = new double[3];
+            output = network.Query(input);
+            network.Train(input, answer, index);
+            output = network.Query(input);
 
         }
 
