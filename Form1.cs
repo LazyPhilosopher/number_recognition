@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -23,7 +23,7 @@ namespace MNIST_NeuronNetwork
         private void MNIST_BMP_button_Click(object sender, EventArgs e)
         {
             OpenFileDialog openMNISTDialog = new OpenFileDialog();
-            
+
             string line;
 
             openMNISTDialog.InitialDirectory = "\\";
@@ -104,7 +104,7 @@ namespace MNIST_NeuronNetwork
                         }
                         LogBox.Text += Convert.ToString(output_addr) + "\r\n";
                         LogBox.Refresh();
-                        Image.Save(output_addr);                  
+                        Image.Save(output_addr);
 
                     }
                 }
@@ -114,7 +114,7 @@ namespace MNIST_NeuronNetwork
         private void TrainButton_Click(object sender, EventArgs e)
         {
 
-            double[] input = new double[784];
+            /*double[] input = new double[784];
             double[] answer = new double[10];
             double[] output = new double[10];
 
@@ -151,7 +151,7 @@ namespace MNIST_NeuronNetwork
             {
                 EpochBox.Text = "100";
             }
-            if(IndexBox.Text == "")
+            if (IndexBox.Text == "")
             {
                 IndexBox.Text = "0,3";
             }
@@ -240,7 +240,7 @@ namespace MNIST_NeuronNetwork
 
                 using (Graphics g = Graphics.FromImage(percent_graph))
                 {
-                    int a = Convert.ToInt32((percent_graph.Width / epochs)* epoch);
+                    int a = Convert.ToInt32((percent_graph.Width / epochs) * epoch);
                     int b = Convert.ToInt32(percent_graph.Height - percent_graph.Height * error_percent);
                     int c = Convert.ToInt32(percent_graph.Width / epochs);
                     int d = Convert.ToInt32(percent_graph.Height * error_percent);
@@ -252,7 +252,8 @@ namespace MNIST_NeuronNetwork
                 percent_box.Refresh();
 
 
-            }
+            }*/
+
         }
 
         private void AutoQueryButton_Click(object sender, EventArgs e)
@@ -325,7 +326,7 @@ namespace MNIST_NeuronNetwork
                     else
                     {
                         error_percent += output[x] / answer.Length;
-                        if(output[x] >= 0.5)
+                        if (output[x] >= 0.5)
                         {
                             mistake = true;
                         }
@@ -398,9 +399,9 @@ namespace MNIST_NeuronNetwork
 
                 output = network.Query(input);
 
-                for(int x = 0; x < output.Length; x++)
+                for (int x = 0; x < output.Length; x++)
                 {
-                    if(output[x] >= 0.75)
+                    if (output[x] >= 0.75)
                     {
                         LogBox.Text += network.neuron_arrays[network.neuron_arrays.Length - 1][x].name + " => TRUE\r\n";
                     }

@@ -46,4 +46,3 @@ namespace MNIST_NeuronNetwork
         }
     }
 }
-

@@ -7,10 +7,10 @@ namespace MNIST_NeuronNetwork
 {
     class Neuron_Network
     {
-        int input_nodes = 748;
-        int hidden_nodes = 0;
-        int hidden_layers = 0;
-        int output_nodes = 10;
+        int input_nodes = 3;
+        int hidden_nodes = 3;
+        int hidden_layers = 1;
+        int output_nodes = 3;
         double learning_rate = 1;
         public Random randomizer = new Random((int)DateTime.Now.Ticks);
 
@@ -22,8 +22,8 @@ namespace MNIST_NeuronNetwork
         {
 
             try
-            {
-                if(new FileInfo("network_settings.txt").Length == 0)
+            { 
+                if (new FileInfo("network_settings.txt").Length == 0)
                 {
                     throw new ArgumentException();
                 }
@@ -74,15 +74,11 @@ namespace MNIST_NeuronNetwork
                                 if (x == 0)
                                 {
                                     neuron_arrays[0] = new Neuron[Convert.ToInt32(parameters[0])];
-                                    for (int n = 0; n < neuron_arrays[0].Length; n++)
-                                    {
-                                        neuron_arrays[x][n] = new Neuron(1, randomizer, "unnamed");
-                                    }
-                                    x++;
                                 }
-                                if (x == Convert.ToInt32(parameters[2]) + 1)
+                                if (x == Convert.ToInt32(parameters[1]) + 1)
                                 {
                                     neuron_arrays[1 + Convert.ToInt32(parameters[2])] = new Neuron[Convert.ToInt32(parameters[3])];
+
                                 }
                                 else
                                 {
@@ -90,7 +86,15 @@ namespace MNIST_NeuronNetwork
                                 }
                                 for (int n = 0; n < neuron_arrays[x].Length; n++)
                                 {
-                                    neuron_arrays[x][n] = new Neuron(neuron_arrays[x - 1].Length, randomizer, "unnamed");
+                                    if (x != 0)
+                                    {
+                                        neuron_arrays[x][n] = new Neuron(neuron_arrays[x - 1].Length, randomizer, "unnamed");
+                                    }
+                                    else
+                                    {
+                                        neuron_arrays[x][n] = new Neuron(1, randomizer, "unnamed");
+                                    }
+                                    neuron_arrays[x][n].ID = "Neuron[" + x + ", " + n + "]";
                                 }
                             }
                         }
@@ -156,6 +160,7 @@ namespace MNIST_NeuronNetwork
                                     }
                                     else if (buffer.Substring(x, 1) == ":")
                                     {
+
                                         layer_ID = buffer.Substring(ID_positions[0], ID_positions[1] - ID_positions[0]);
                                         neuron_ID = buffer.Substring(ID_positions[1] + 1, ID_positions[4] - ID_positions[1]);
                                         neuron_arrays[Convert.ToInt32(layer_ID)][Convert.ToInt32(neuron_ID)].ID = name.Substring(0, ID_positions[4] + 2);
@@ -219,7 +224,7 @@ namespace MNIST_NeuronNetwork
                     }
                     using (var writer = new StreamWriter("network_settings.txt"))
                     {
-                        writer.WriteLine("#PARAMETERS: " + input_nodes + "; " + hidden_layers + "; " + hidden_nodes + "; " + output_nodes);
+                        writer.WriteLine("#PARAMETERS: " + input_nodes + "; "+ hidden_nodes + "; " + hidden_layers + ";" + output_nodes);
                         for (int x = 0; x < neuron_arrays.Length; x++)
                         {
                             writer.WriteLine();
@@ -326,12 +331,12 @@ namespace MNIST_NeuronNetwork
                         Weight_sum = 0;
                         for (int x = 0; x < neuron_arrays[by_layer][neuron_upper].input_weights.Length; x++)
                         {
-                            Weight_sum += neuron_arrays[by_layer][neuron_upper].input_weights[x] * neuron_arrays[by_layer - 1][x].output;
+                            Weight_sum += neuron_arrays[by_layer][neuron_upper].input_weights[x];
                         }
                         // сумма входных весов верхнего нейрона
                         for (int x = 0; x < neuron_arrays[by_layer][neuron_upper].input_weights.Length; x++)
                         {
-                            error_per_neuron[by_layer - 1][x] += error_per_neuron[by_layer][neuron_upper] * (neuron_arrays[by_layer][neuron_upper].input_weights[x] * neuron_arrays[by_layer - 1][x].output / Weight_sum);
+                            error_per_neuron[by_layer - 1][x] += error_per_neuron[by_layer][neuron_upper] * (neuron_arrays[by_layer][neuron_upper].input_weights[x] / Weight_sum);
                         }
                         // ошибка верхнего нейрона распространяется соразмерно весам на нейроны в соседнем снизу слое 
 
@@ -341,7 +346,7 @@ namespace MNIST_NeuronNetwork
 
 
 
-            for (int by_layer = 0; by_layer < neuron_arrays.Length; by_layer++)
+            for (int by_layer = 1; by_layer < neuron_arrays.Length; by_layer++)
             {
                 for (int by_neuron = 0; by_neuron < neuron_arrays[by_layer].Length; by_neuron++)
                 {
@@ -354,14 +359,14 @@ namespace MNIST_NeuronNetwork
                         }
                         for (int by_weight = 0; by_weight < neuron_arrays[by_layer][by_neuron].input_weights.Length; by_weight++)
                         {
-                            neuron_arrays[by_layer][by_neuron].input_weights[by_weight] += -error_per_neuron[by_layer][by_neuron] * (1 / (1 + Math.Exp(-X_sum))) * (1 - (1 / (1 + Math.Exp(-X_sum)))) * neuron_arrays[by_layer - 1][by_weight].output * (-learn_index);
+                            neuron_arrays[by_layer][by_neuron].input_weights[by_weight] += error_per_neuron[by_layer][by_neuron] * (1 / (1 + Math.Exp(-X_sum))) * (1 - (1 / (1 + Math.Exp(-X_sum)))) * neuron_arrays[by_layer - 1][by_weight].output * learn_index;
                         }
                     }
                     else
                     {
                         for (int by_weight = 0; by_weight < neuron_arrays[by_layer][by_neuron].input_weights.Length; by_weight++)
                         {
-                            neuron_arrays[by_layer][by_neuron].input_weights[by_weight] += -error_per_neuron[by_layer][by_neuron] * (1 / (1 + Math.Exp(-input_data[by_neuron]))) * (1 - (1 / (1 + Math.Exp(-input_data[by_neuron])))) * input_data[by_neuron] * (-learn_index);
+                            neuron_arrays[by_layer][by_neuron].input_weights[by_weight] += error_per_neuron[by_layer][by_neuron] * (1 / (1 + Math.Exp(-input_data[by_neuron]))) * (1 - (1 / (1 + Math.Exp(-input_data[by_neuron])))) * input_data[by_neuron] * learn_index;
                         }
                     }
                 }
@@ -372,7 +377,7 @@ namespace MNIST_NeuronNetwork
         {
             using (var writer = new StreamWriter("network_settings.txt"))
             {
-                writer.WriteLine("#PARAMETERS: " + input_nodes + "; " + hidden_layers + "; " + hidden_nodes + "; " + output_nodes);
+                writer.WriteLine("#PARAMETERS: " + input_nodes + "; " + hidden_nodes + "; " + hidden_layers + ";   " + output_nodes);
                 for (int x = 0; x < neuron_arrays.Length; x++)
                 {
                     writer.WriteLine();
@@ -406,4 +411,3 @@ namespace MNIST_NeuronNetwork
         }
     }
 }
-
