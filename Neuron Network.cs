@@ -75,7 +75,7 @@ namespace MNIST_NeuronNetwork
                                 {
                                     neuron_arrays[0] = new Neuron[Convert.ToInt32(parameters[0])];
                                 }
-                                if (x == Convert.ToInt32(parameters[1]) + 1)
+                                else if (x == Convert.ToInt32(parameters[2]) + 1)
                                 {
                                     neuron_arrays[1 + Convert.ToInt32(parameters[2])] = new Neuron[Convert.ToInt32(parameters[3])];
 
@@ -93,6 +93,7 @@ namespace MNIST_NeuronNetwork
                                     else
                                     {
                                         neuron_arrays[x][n] = new Neuron(1, randomizer, "unnamed");
+                                        neuron_arrays[x][n].function = "net";
                                     }
                                     neuron_arrays[x][n].ID = "Neuron[" + x + ", " + n + "]";
                                 }
@@ -305,7 +306,7 @@ namespace MNIST_NeuronNetwork
 
             double Weight_sum = 0;
             double[][] error_per_neuron = new double[neuron_arrays.Length][];
-            double[] netowrk_output = Query(input_data);
+            double[] network_output = Query(input_data);
 
             for (int x = 0; x < neuron_arrays.Length; x++)
             {
@@ -336,7 +337,7 @@ namespace MNIST_NeuronNetwork
                         // сумма входных весов верхнего нейрона
                         for (int x = 0; x < neuron_arrays[by_layer][neuron_upper].input_weights.Length; x++)
                         {
-                            error_per_neuron[by_layer - 1][x] += error_per_neuron[by_layer][neuron_upper] * (neuron_arrays[by_layer][neuron_upper].input_weights[x] / Weight_sum);
+                            error_per_neuron[by_layer - 1][x] += error_per_neuron[by_layer][neuron_upper] * neuron_arrays[by_layer][neuron_upper].input_weights[x];
                         }
                         // ошибка верхнего нейрона распространяется соразмерно весам на нейроны в соседнем снизу слое 
 

@@ -113,8 +113,8 @@ namespace MNIST_NeuronNetwork
 
         private void TrainButton_Click(object sender, EventArgs e)
         {
-
-            /*double[] input = new double[784];
+            
+            double[] input = new double[784];
             double[] answer = new double[10];
             double[] output = new double[10];
 
@@ -127,6 +127,7 @@ namespace MNIST_NeuronNetwork
             Bitmap image;
             Bitmap percent_graph = new Bitmap(percent_box.Width * 999, percent_box.Height);
             double error_percent = 0;
+            Random rand = new Random();
 
             try
             {
@@ -166,7 +167,7 @@ namespace MNIST_NeuronNetwork
                 error_percent = 0;
                 for (int file = 0; file < filePaths.Length; file++)
                 {
-                    image_addr = filePaths[file];
+                    image_addr = filePaths[rand.Next(0, filePaths.Length-1)];
                     image_name = Path.GetFileName(image_addr);
                     image = new Bitmap(image_addr);
                     LookWindow.Image = image;
@@ -193,7 +194,7 @@ namespace MNIST_NeuronNetwork
                     {
                         for (int x = 0; x < 28; x++)
                         {
-                            input[x + y * x] = 255 * (1 - Convert.ToDouble(image.GetPixel(x, y).GetBrightness()));
+                            input[x + y * x] = 1 - Convert.ToDouble(image.GetPixel(x, y).GetBrightness());
                         }
                     }
                     output = network.Query(input);
@@ -252,14 +253,14 @@ namespace MNIST_NeuronNetwork
                 percent_box.Refresh();
 
 
-            }*/
-            double[] input = {1.0, 0.5, -1.5};
-            double[] answer = {0.208131, 0.22549215, 0.99742175};
+            }
+            /*ouble[] input = {1.0, 0.5, -1.5};
+            double[] answer = {0.20813168, 0.22549015, 0.99742175};
             double index = 0.3;
             double[] output = new double[3];
             output = network.Query(input);
             network.Train(input, answer, index);
-            output = network.Query(input);
+            output = network.Query(input);*/
 
         }
 

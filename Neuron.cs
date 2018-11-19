@@ -30,13 +30,19 @@ namespace MNIST_NeuronNetwork
             last_input = new double[neuron_input.Length];
             last_input = neuron_input;
             double x = 0;
+
+            for (int y = 0; y < neuron_input.Length; y++)
+            {
+                x = x + neuron_input[y] * input_weights[y];
+            }
+
             if (function == "sigmoid")
             {
-                for (int y = 0; y < neuron_input.Length; y++)
-                {
-                    x = x + neuron_input[y] * input_weights[y];
-                }
                 output = 1 / (1 + Math.Exp(-x));
+            }
+            else if(function == "net")
+            {
+                output = x;
             }
             else
             {
