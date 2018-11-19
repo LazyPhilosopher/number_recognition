@@ -7,10 +7,10 @@ namespace MNIST_NeuronNetwork
 {
     class Neuron_Network
     {
-        int input_nodes = 3;
-        int hidden_nodes = 3;
-        int hidden_layers = 1;
-        int output_nodes = 3;
+        int input_nodes = 784;
+        int hidden_nodes = 100;
+        int hidden_layers = 2;
+        int output_nodes = 10;
         double learning_rate = 1;
         public Random randomizer = new Random((int)DateTime.Now.Ticks);
 
@@ -32,7 +32,7 @@ namespace MNIST_NeuronNetwork
                 {
                     string buffer;
                     string number = "";
-                    string[] parameters = new string[5];
+                    string[] parameters = new string[4];
                     int line = 0;
 
                     while ((buffer = reader.ReadLine()) != null)
@@ -68,6 +68,12 @@ namespace MNIST_NeuronNetwork
                             }
                             // #PARAMETERS: 784; 0; 0; 10; 0,3
                             // Network parameters
+
+                            input_nodes = Convert.ToInt32(parameters[0]);
+                            hidden_nodes = Convert.ToInt32(parameters[1]);
+                            hidden_layers = Convert.ToInt32(parameters[2]);
+                            output_nodes = Convert.ToInt32(parameters[3]);
+
                             neuron_arrays = new Neuron[2 + Convert.ToInt32(parameters[2])][];
                             for (int x = 0; x < Convert.ToInt32(parameters[2]) + 2; x++)
                             {
@@ -391,7 +397,7 @@ namespace MNIST_NeuronNetwork
                 }
                 writer.WriteLine("");
                 writer.WriteLine("COMMENTARY: This is end of network settings.");
-                writer.WriteLine("Parameters: input nodes; hidden nodes; hidden layers; output nodes; learning rate");
+                writer.WriteLine("Parameters: input nodes; hidden nodes; hidden layers; output nodes");
                 writer.WriteLine("This is idle settings file generated for sigmoid neural network.");
                 writer.WriteLine("Made by LazyPhilosopher");
             }

@@ -101,7 +101,7 @@
             this.ManualQueryButton.BackColor = System.Drawing.Color.Teal;
             this.ManualQueryButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.1F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.ManualQueryButton.ForeColor = System.Drawing.Color.White;
-            this.ManualQueryButton.Location = new System.Drawing.Point(27, 657);
+            this.ManualQueryButton.Location = new System.Drawing.Point(27, 633);
             this.ManualQueryButton.Margin = new System.Windows.Forms.Padding(15);
             this.ManualQueryButton.Name = "ManualQueryButton";
             this.ManualQueryButton.Size = new System.Drawing.Size(347, 67);
@@ -148,7 +148,7 @@
             this.EpochBox.Name = "EpochBox";
             this.EpochBox.Size = new System.Drawing.Size(166, 38);
             this.EpochBox.TabIndex = 10;
-            this.EpochBox.Text = "100";
+            this.EpochBox.Text = "4";
             // 
             // IndexBox
             // 
@@ -156,7 +156,7 @@
             this.IndexBox.Name = "IndexBox";
             this.IndexBox.Size = new System.Drawing.Size(166, 38);
             this.IndexBox.TabIndex = 11;
-            this.IndexBox.Text = "0,3";
+            this.IndexBox.Text = "0,1";
             // 
             // ErrorLabel
             // 

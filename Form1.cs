@@ -13,7 +13,11 @@ namespace MNIST_NeuronNetwork
 {
     public partial class Form1 : Form
     {
+        public double[] input = new double[784];
+        public double[] answer = new double[10];
+        public double[] output = new double[10];
         Neuron_Network network;
+
         public Form1()
         {
             InitializeComponent();
@@ -114,9 +118,7 @@ namespace MNIST_NeuronNetwork
         private void TrainButton_Click(object sender, EventArgs e)
         {
             
-            double[] input = new double[784];
-            double[] answer = new double[10];
-            double[] output = new double[10];
+
 
             int epochs = 100;
             double index = 0.3;
