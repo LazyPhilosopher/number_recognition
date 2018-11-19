@@ -304,7 +304,6 @@ namespace MNIST_NeuronNetwork
         public void Train(double[] input_data, double[] answer_data, double learn_index)
         {
 
-            double Weight_sum = 0;
             double[][] error_per_neuron = new double[neuron_arrays.Length][];
             double[] network_output = Query(input_data);
 
@@ -315,8 +314,6 @@ namespace MNIST_NeuronNetwork
 
             for (int by_layer = neuron_arrays.Length - 1; by_layer >= 0; by_layer--)
             {
-                Weight_sum = 0;
-
                 if (by_layer == neuron_arrays.Length - 1)
                 {
                     for (int by_neuron = 0; by_neuron < neuron_arrays[by_layer].Length; by_neuron++)
@@ -329,12 +326,6 @@ namespace MNIST_NeuronNetwork
 
                     for (int neuron_upper = 0; neuron_upper < error_per_neuron[by_layer].Length; neuron_upper++)
                     {
-                        Weight_sum = 0;
-                        for (int x = 0; x < neuron_arrays[by_layer][neuron_upper].input_weights.Length; x++)
-                        {
-                            Weight_sum += neuron_arrays[by_layer][neuron_upper].input_weights[x];
-                        }
-                        // сумма входных весов верхнего нейрона
                         for (int x = 0; x < neuron_arrays[by_layer][neuron_upper].input_weights.Length; x++)
                         {
                             error_per_neuron[by_layer - 1][x] += error_per_neuron[by_layer][neuron_upper] * neuron_arrays[by_layer][neuron_upper].input_weights[x];
