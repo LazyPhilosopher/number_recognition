@@ -169,7 +169,7 @@ namespace MNIST_NeuronNetwork
                 error_percent = 0;
                 for (int file = 0; file < filePaths.Length; file++)
                 {
-                    image_addr = filePaths[rand.Next(0, filePaths.Length-1)];
+                    image_addr = filePaths[rand.Next(0, filePaths.Length)];
                     image_name = Path.GetFileName(image_addr);
                     image = new Bitmap(image_addr);
                     LookWindow.Image = image;
