@@ -13,7 +13,7 @@ Neuron[2, 1] ''unnamed'': -3,79503146E-01; 8,03515005E-01; 8,45554703E-01
 Neuron[2, 2] ''unnamed'': 8,36719543E-04; -5,34316931E-01; -9,02445522E-01
 
 COMMENTARY: This is end of network settings.
-Parameters: input nodes; hidden nodes; hidden layers; output nodes; learning rate
+Parameters: input nodes; hidden nodes; hidden layers; output nodes
 This is idle settings file generated for sigmoid neural network.
 Made by LazyPhilosopher
 
@@ -36,6 +36,6 @@ Neuron[2, 1] ''unnamed'': -3,79503146E-01; 8,03515005E-01; 8,45554703E-01
 Neuron[2, 2] ''unnamed'': 8,36719543E-04; -5,34316931E-01; -9,02445522E-01
 
 COMMENTARY: This is end of network settings.
-Parameters: input nodes; hidden nodes; hidden layers; output nodes; learning rate
+Parameters: input nodes; hidden nodes; hidden layers; output nodes
 This is idle settings file generated for sigmoid neural network.
 Made by LazyPhilosopher
